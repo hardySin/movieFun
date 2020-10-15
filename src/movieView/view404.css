@@ -1,0 +1,120 @@
+	*{
+		transition: all 0.6s;
+	}
+
+	
+	body{
+		font-family: 'Lato', sans-serif;
+		color: #888;
+	}
+
+	#main{
+		display: table;
+		width: 100%;
+		height: 50vh;
+		text-align: center; 
+	}
+
+	.fof{
+		display: table-cell;
+		vertical-align: middle;
+	}
+
+	.fof h1{
+		font-size: 50px;
+		display: inline-block;
+		padding-right: 12px;
+		animation: type .5s alternate infinite;
+	}
+
+@keyframes type{
+	  from{box-shadow: inset -3px 0px 0px #888;}
+	  to{box-shadow: inset -3px 0px 0px transparent;}
+}
+
+.imageCrop
+{
+	width: 100%; /* width of container */
+    height: 400px; /* height of container */
+    object-fit: cover;
+	object-position: 20% 10%; 
+	opacity: 1;
+   	transition: .5s ease;
+	backface-visibility: hidden;	
+  
+ }
+
+ .middle {
+  	position: absolute;
+	top: 35%;
+	left: 35%;
+	opacity: 0;
+	color: black;
+       }
+ 
+
+   .holder:hover .imageCrop {
+	opacity: 0.6;
+  }
+
+  
+  .holder:hover .middle{
+	opacity: 1;
+   }
+
+   .row1
+   {
+	margin-top: 2%;
+	margin-bottom: 2%;
+ 	position: relative;
+	margin-left: 4%;
+	margin-right: 4%;
+   
+}
+
+.cast
+{
+	margin-top: 2%;
+}
+
+.genres
+{
+	margin-top: 4%;
+}
+
+.castProfile
+{
+	width: 100px; /* width of container */
+    height: 400px; /* height of container */
+    object-fit: cover;
+	object-position: 20% 10%; 
+	opacity: 1;
+   	transition: .5s ease;
+   padding: 10% 10% 10% 10% ;
+ }
+
+.holder:hover .castProfile {
+	opacity: 0.2;
+  }
+.NotFound
+{
+	text-align: center;
+	margin-top: 50%;
+  	  
+}
+
+.describe
+{
+	position: absolute;
+	top: 40%;
+	left: 20%;
+	right: 20%;
+ 	opacity: 0;
+	color: black;	
+}
+
+.holder:hover .describe{
+	opacity: 1;
+   }
+
+  
