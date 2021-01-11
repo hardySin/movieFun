@@ -13,8 +13,8 @@ function App(props) {
  const routers=() =>(<Router>
                <Switch>
                   <Route exact path='/' component={Home} />
-                  <Route exact  path='/viewMovies' component={viewmovie} />
-                      <Route exact  path='/viewMovie/:movieId/:displayName' component={view} />
+                  <Route    path='/viewMovies' component={viewmovie} />
+                      <Route    path='/viewMovie/:movieId/:displayName' component={view} />
                       <Route  path='/relatedViewMovie/:relatedID/:displayName' component={related} />
 
                   <Route path="*" component={notfound} />

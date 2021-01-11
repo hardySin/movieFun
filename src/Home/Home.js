@@ -6,7 +6,6 @@ import Account from  '../createAccount/createLogin';
 import Upcoming from '../upcomingmoives/upcoming';
 import Header from '../header/header';
 import Footer from '../footer/footer';
-
 function Home(props) {
 let history=useHistory();
 function userCheck()
