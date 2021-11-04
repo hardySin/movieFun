@@ -20,21 +20,21 @@ export default function RelatedMovies(props)
      let history=useHistory();
 
      //  const query = useLocation();
-     async function fetchData()
-     {
-         let movielink="https://api.themoviedb.org/3/movie/"+props.movieId+"/similar?api_key=0612d44670c9d53eb57dd9ec885631d6&language=en-US";
-         await fetch(movielink)
-                .then(res => res.json())
-               .then(res =>  
-                 {
-                      console.log("res",res);
-                         setsimilar(res.results);
-                       console.log("similar",similar);
-                       setLoading(true)
+        async function fetchData()
+        {
+            let movielink="https://api.themoviedb.org/3/movie/"+props.movieId+"/similar?api_key=0612d44670c9d53eb57dd9ec885631d6&language=en-US";
+            await fetch(movielink)
+                    .then(res => res.json())
+                .then(res =>  
+                    {
+                        console.log("res",res);
+                            setsimilar(res.results);
+                        console.log("similar",similar);
+                        setLoading(true)    
 
-                   })
-               .catch(() =>console.log("here error occured"));
-     }
+                    })
+                .catch(() =>console.log("here error occured"));
+        }
       useEffect(()=>
      {
            fetchData();

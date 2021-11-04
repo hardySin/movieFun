@@ -63,8 +63,7 @@ async function youTubeVideo()
            .then(res => res.json())
           .then(res =>  
             {
- 
-              setyouTube(res.results[0].key)
+               setyouTube(res.results[0].key)
                  })
           .catch(() =>console.log("here error occured"));
 }

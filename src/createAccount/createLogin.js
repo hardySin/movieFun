@@ -50,7 +50,7 @@ function Account(props) {
   return (
         <div className="accContainer"> 
        
-        <h2 className="Acctitle">Create your Account</h2>
+        <h2 className="Acctitle">Create your Account</h2> 
         <hr className="line"/>
       
         <Form className="account" >
