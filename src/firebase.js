@@ -1,8 +1,9 @@
-import  app  from "firebase/app";
-import 'firebase/auth';
-import 'firebase/firebase-firestore';
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, doc, setDoc,getDocs } from "firebase/firestore";
+import { getAuth, signInWithEmailAndPassword, updateProfile, createUserWithEmailAndPassword, signOut } from "firebase/auth";
+
 const config = {
-    apiKey: "AIzaSyCOGgt4D2MoJ3xGVGVf9ZlnxTBVPCRjm10",
+    apiKey: "AIzaSyBR50dWzhzX-8XsU7QlgED3Cw9QXZdtMfI",
     authDomain: "moviefun-6c4c2.firebaseapp.com",
     databaseURL: "https://moviefun-6c4c2.firebaseio.com",
     projectId: "moviefun-6c4c2",
@@ -10,64 +11,60 @@ const config = {
     messagingSenderId: "356787472",
     appId: "1:356787472:web:1d23d52970394c60c0b195",
     measurementId: "G-Z44NQJLGM1"
- }
-class firebase 
-{
-    constructor()
-    {
-        app.initializeApp(config);
-            this.auth=app.auth();
-            this.db=app.firestore();
+};
+
+
+class firebase {
+
+
+    constructor(config) {
+        this.app = initializeApp(config);
+        this.db = getFirestore(this.app);
+        this.auth = getAuth(this.app);
+        this.currentUser = getAuth().currentUser;
+        console.log("this.currentUser ", this.currentUser)
+
     }
 
-    login(email,password)
-    {
-        return this.auth.signInWithEmailAndPassword(email,password)
+    login(email, password) {
+        return signInWithEmailAndPassword(this.auth, email, password)
     }
 
-    logout()
-    {
-        return this.auth.signOut();
+    logout() {
+        return signOut(this.auth);
     }
 
-    async register(email,password)
-    {
-        let num=Math.floor(Math.random() * 2000) + 1;
-        let name="HAcker"+num;
-        await this.auth.createUserWithEmailAndPassword(email,password)
-        return this.auth.currentUser.updateProfile({
-            displayName:name
-        })
-    }
-    
-    currentUser()
-    {
-        return this.auth.currentUser.uid  ;  
+    async register(email, password) {
+        let num = Math.floor(Math.random() * 2000) + 1;
+        let name = "HAcker" + num;
+        await createUserWithEmailAndPassword(this.auth, email, password)
+        console.log("name", name)
+        return updateProfile(this.auth.currentUser, { displayName: name })
     }
 
-    isIntializated()
-    {
-       return new Promise(resolve=>
-            {
-                this.auth.onAuthStateChanged(resolve)
-            }); 
+    currentUser() {
+        return this.auth.currentUser.uid;
     }
-    
-  async  addComment(userId,userComment,userName,movieId)
-    {
-        let date=new Date();
 
-       await this.db.collection("Comments").doc()
-       .set({"userId":userId,"userComment":userComment,"userName":userName,"timing":date,"movieId":movieId,"year":date.getFullYear(),
-            "month":date.getMonth(),"date":date.getDate()})
-                return this.db.collection(userId)
-        }
-
-   async    getCommentOnId(userId)
-    {
-        return await this.db.collection("Comments").get()
+    async isIntializated() {
+        return new Promise(resolve => {
+            this.auth.onAuthStateChanged(resolve)
+        });
     }
+
+    async addComment(userId, userComment, userName, movieId) {
+        let date = new Date();
+        const CommentColl = doc(collection(this.db, "Comments"));
+        await setDoc(CommentColl, {
+            "userId": userId, "userComment": userComment, "userName": userName, "timing": date, "movieId": movieId, "year": date.getFullYear(),
+            "month": date.getMonth(), "date": date.getDate()
+        });
+    }
+
+    async getCommentOnId(userId) {
+        return  await getDocs(collection(this.db, "Comments"));
+    }
+
 }
 
- 
-export default new firebase();
+export default new firebase(config);
