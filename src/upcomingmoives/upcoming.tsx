@@ -1,14 +1,11 @@
-import React, { useState, useEffect, useContext, use } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { PlayArrow, TrendingUp, Visibility } from '@mui/icons-material';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import firebase from '../service/firebase';
 import LoginHeader from '../header/loginHeader';
 import '../upcomingmoives/upcoming.css';
 import common from '../service/common';
-import AuthContext from '../context/AuthContext';
-import { useLocation } from 'react-router-dom';
 import Footer from '../footer/footer';
 
 interface Movie {
@@ -23,20 +20,14 @@ interface Movie {
 const Upcoming: React.FC = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
-  const [name, setName] = useState('');
   const [showAlert, setShowAlert] = useState(false);
   const navigate = useNavigate();
-  // const { logout, isLoggedIn, user, isUserLoggedIn } = useContext(AuthContext)!;
   const location = useLocation();
-
 
   function getCurrentAndNextYearDates(): { current: string; nextYear: string } {
     const currentDate: Date = new Date();
-
-    // Format current date as YYYY-MM-DD
     const currentFormatted: string = currentDate.toISOString().split('T')[0];
-
-    // Calculate next year's same date
+    
     const nextYearDate: Date = new Date(currentDate);
     nextYearDate.setFullYear(nextYearDate.getFullYear() + 1);
     const nextYearFormatted: string = nextYearDate.toISOString().split('T')[0];
@@ -46,7 +37,6 @@ const Upcoming: React.FC = () => {
       nextYear: nextYearFormatted
     };
   }
-
 
   const fetchData = async () => {
     try {
@@ -69,9 +59,6 @@ const Upcoming: React.FC = () => {
   };
 
   useEffect(() => {
-    // setName(user ? user.displayName || 'User' : 'Guest');
-    // console.log(location.pathname);
-    // isUserLoggedIn(location.pathname);
     fetchData();
   }, []);
 
@@ -83,77 +70,88 @@ const Upcoming: React.FC = () => {
     return (
       <div className="loading-container">
         <div className="spinner"></div>
+        <p>Loading upcoming movies...</p>
       </div>
     );
   }
 
   return (
-    <div>
-      {location.pathname === '/viewMovies' ?
-        // <LoginHeader name={user ? user.displayName || 'User' : 'Guest'} userPhoto={user ? user.photoURL : undefined} />
+    <div className="upcoming-page">
+      {location.pathname === '/viewMovies' && (
         <LoginHeader name={'Guest'} userPhoto={''} />
-        : ""}
+      )}
+      
       <div className="container">
         {/* Header */}
         <div className="header">
           <h1 className="title">
-            <TrendingUp /> Upcoming Movies
+            <TrendingUp className="title-icon" /> Upcoming Movies
           </h1>
           <div className="title-underline"></div>
+          <p className="subtitle">Discover the most anticipated films coming soon</p>
         </div>
 
         {/* Movies Carousel */}
-        <div className="carousel-container">
-          <Carousel
-            showArrows={true}
-            showStatus={false}
-            showThumbs={false}
-            infiniteLoop={true}
-            autoPlay={true}
-            interval={5000}
-            centerMode={true}
-            centerSlidePercentage={33}
-            emulateTouch={false}
-          >
-            {movies.map((movie) => {
-              const poster = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
-              const releaseYear = movie.release_date ? new Date(movie.release_date).getFullYear() : 'TBA';
+        {movies.length > 0 && (
+          <div className="carousel-container">
+            <Carousel
+              showArrows={true}
+              showStatus={false}
+              showThumbs={false}
+              infiniteLoop={true}
+              autoPlay={true}
+              interval={5000}
+              centerMode={true}
+              centerSlidePercentage={33}
+              emulateTouch={true}
+              swipeable={true}
+              className="upcoming-carousel"
+            >
+              {movies.map((movie) => {
+                const poster = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
+                const releaseYear = movie.release_date ? new Date(movie.release_date).getFullYear() : 'TBA';
 
-              return (
-                <div key={movie.id} className="carousel-item">
-                  <div className="card">
-                    <img
-                      src={poster}
-                      alt={movie.title}
-                      className="card-image"
-                    />
-                    <div className="card-content">
-                      <h3 className="card-title">{movie.title}</h3>
-                      <div className="card-chips">
-                        <span className="chip chip-primary">{releaseYear}</span>
-                        <span className="chip chip-secondary">⭐ {movie.vote_average.toFixed(1)}</span>
+                return (
+                  <div key={movie.id} className="carousel-item">
+                    <div className="card">
+                      <div className="card-image-container">
+                        <img
+                          src={poster}
+                          alt={movie.title}
+                          className="card-image"
+                          loading="lazy"
+                        />
+                        <div className="card-overlay"></div>
                       </div>
-                      <p className="card-description">
-                        {movie.overview}
-                      </p>
-                    </div>
-                    <div className="card-actions">
-                      <button
-                        className="btn btn-primary"
-                        onClick={() => viewMovie(movie.id)}
-                      >
-                        <Visibility /> View Trailer
-                      </button>
+                      <div className="card-content">
+                        <h3 className="card-title">{movie.title}</h3>
+                        <div className="card-chips">
+                          <span className="chip chip-primary">{releaseYear}</span>
+                          <span className="chip chip-secondary">⭐ {movie.vote_average.toFixed(1)}</span>
+                        </div>
+                        <p className="card-description">
+                          {movie.overview.substring(0, 100)}...
+                        </p>
+                      </div>
+                      <div className="card-actions">
+                        <button
+                          className="btn btn-primary"
+                          onClick={() => viewMovie(movie.id)}
+                        >
+                          <Visibility /> View Details
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
-          </Carousel>
-        </div>
+                );
+              })}
+            </Carousel>
+          </div>
+        )}
 
-        {/* Alternative Grid Layout for smaller screens */}
+        {/* Grid Layout for mobile */}
         <div className="grid-container">
+          <h2 className="grid-title">Upcoming Movies</h2>
           <div className="movie-grid">
             {movies.slice(0, 6).map((movie) => {
               const poster = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
@@ -162,16 +160,19 @@ const Upcoming: React.FC = () => {
               return (
                 <div key={movie.id} className="grid-item">
                   <div className="card">
-                    <img
-                      src={poster}
-                      alt={movie.title}
-                      className="card-image"
-                    />
+                    <div className="card-image-container">
+                      <img
+                        src={poster}
+                        alt={movie.title}
+                        className="card-image"
+                        loading="lazy"
+                      />
+                    </div>
                     <div className="card-content">
                       <h3 className="card-title-small">{movie.title}</h3>
                       <div className="card-chips">
                         <span className="chip">{releaseYear}</span>
-                        <span className="chip chip-secondary">⭐ {movie.vote_average}</span>
+                        <span className="chip chip-secondary">⭐ {movie.vote_average.toFixed(1)}</span>
                       </div>
                     </div>
                     <div className="card-actions">
@@ -189,10 +190,10 @@ const Upcoming: React.FC = () => {
           </div>
         </div>
       </div>
-      {location.pathname === '/viewMovies' ?
-        // <LoginHeader name={user ? user.displayName || 'User' : 'Guest'} userPhoto={user ? user.photoURL : undefined} />
+      
+      {location.pathname === '/viewMovies' && (
         <Footer />
-        : ""}
+      )}
 
       {/* Alert Snackbar */}
       {showAlert && (
