@@ -1,0 +1,165 @@
+/* loader.css */
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  gap: 1.5rem;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  position: relative;
+}
+
+.loader-visible {
+  opacity: 1;
+}
+
+.loader-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.loader-spinner {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader-gradient-circle {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: linear-gradient(45deg, 
+    #1976d2, /* primary */
+    #dc004e, /* secondary */
+    #f44336, /* error */
+    #ff9800, /* warning */
+    #2196f3, /* info */
+    #4caf50  /* success */
+  );
+  padding: 3px;
+  animation: loader-rotate 1.5s linear infinite;
+  position: relative;
+}
+
+.loader-gradient-circle::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  background: transparent;
+  border-radius: 50%;
+}
+
+.loader-inner-circle {
+  width: 40px;
+  height: 40px;
+  border: 4px solid transparent;
+  border-top: 4px solid currentColor;
+  border-radius: 50%;
+  animation: loader-rotate 1s linear infinite;
+  color: inherit;
+}
+
+.loader-message {
+  color: #666;
+  font-weight: 500;
+  font-size: 1rem;
+  margin: 0;
+  text-align: center;
+}
+
+@keyframes loader-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Optional: Backdrop overlay */
+.loader-container::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  z-index: -1;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .loader-container {
+    padding: 1.5rem;
+  }
+  
+  .loader-content {
+    gap: 1rem;
+  }
+  
+  .loader-message {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .loader-container {
+    padding: 1rem;
+  }
+  
+  .loader-gradient-circle {
+    padding: 2px;
+  }
+  
+  .loader-gradient-circle::before {
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+  }
+  
+  .loader-inner-circle {
+    border-width: 3px;
+  }
+}
+
+/* Alternative color themes */
+.loader-primary .loader-gradient-circle {
+  background: linear-gradient(45deg, #1976d2, #2196f3, #64b5f6);
+}
+
+.loader-secondary .loader-gradient-circle {
+  background: linear-gradient(45deg, #dc004e, #f50057, #ff4081);
+}
+
+.loader-success .loader-gradient-circle {
+  background: linear-gradient(45deg, #4caf50, #66bb6a, #81c784);
+}
+
+/* Size variations */
+.loader-small {
+  --loader-size: 40px;
+}
+
+.loader-medium {
+  --loader-size: 60px;
+}
+
+.loader-large {
+  --loader-size: 80px;
+}

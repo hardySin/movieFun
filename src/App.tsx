@@ -1,26 +1,41 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-function App() {
+// Import components
+import Upcoming from './upcomingmoives/upcoming';
+import NotFound from './movieView/NotFound';
+import Home from './Home/Home';
+import MovieDetails from './movieView/movieDetails';
+// Update the import path to match the actual file name, e.g.:
+import Account from './createAccount/createLogin';
+import Related from './movieView/relatedMovie';
+import { AuthProvider } from './context/AuthContext';
+import Login from './createAccount/login';
+import YouTubeGallery from './movieView/videoSection';
+import MovieSearch from './movieView/movieSearch';
+import WatchProviders from './upcomingmoives/watchproviders';
+import ActorPage from './upcomingmoives/cast';
+
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/viewMovie/:movieId/" element={<MovieDetails />} />
+          <Route path="/relatedViewMovie/:movieId/" element={<MovieDetails />} />
+          <Route path="/gallery/:movieId" element={<YouTubeGallery />} />
+          <Route path="/actor/profile/:personId/" element={<ActorPage />} />
+          <Route path="/viewMovies" element={<Upcoming />} />
+          <Route path="/search/:genresId" element={<MovieSearch />} />
+          <Route path="/provider/:movieId/" element={<WatchProviders />} />
+          <Route path="/lastest" element={<Related />} />
+
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </AuthProvider>
+    </Router>
   );
-}
+};
 
 export default App;

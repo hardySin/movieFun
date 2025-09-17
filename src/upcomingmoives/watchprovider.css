@@ -1,0 +1,146 @@
+/* WatchProvidersPage.css */
+.watch-providers-page {
+  margin: 20px 0;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border: 1px solid #e9ecef;
+}
+
+.watch-providers-page h2 {
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.loading, .error {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+  font-style: italic;
+}
+
+.error {
+  color: #dc3545;
+  background: #f8d7da;
+  border-radius: 6px;
+}
+
+.providers-container {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.provider-section {
+  margin-bottom: 25px;
+}
+
+.provider-section:last-child {
+  margin-bottom: 0;
+}
+
+.provider-section h3 {
+  color: #495057;
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-bottom: 1px solid #dee2e6;
+  padding-bottom: 8px;
+}
+
+.providers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 12px;
+}
+
+.provider-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  border: 1px solid #e9ecef;
+}
+
+.provider-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-color: #007bff;
+}
+
+.provider-logo {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  background: white;
+}
+
+.provider-name {
+  font-size: 0.8rem;
+  text-align: center;
+  color: #495057;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.external-link {
+  text-align: center;
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px solid #dee2e6;
+}
+
+.tmdb-link {
+  color: #01b4e4;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.tmdb-link:hover {
+  text-decoration: underline;
+  color: #0099c3;
+}
+
+.no-providers {
+  text-align: center;
+  padding: 30px;
+  color: #6c757d;
+  background: white;
+  border-radius: 8px;
+  font-style: italic;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .watch-providers-page {
+    padding: 15px;
+    margin: 15px 0;
+  }
+  
+  .providers-grid {
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 10px;
+  }
+  
+  .provider-card {
+    padding: 8px;
+  }
+  
+  .provider-logo {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .provider-name {
+    font-size: 0.7rem;
+  }
+}
