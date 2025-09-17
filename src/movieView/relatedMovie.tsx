@@ -33,19 +33,13 @@ interface Movie {
   genre_ids: number[];
 }
 
-interface RelatedMoviesProps {
-  movieId?: string;
-  displayName?: string;
-}
 
-const RelatedMovies: React.FC<RelatedMoviesProps> = ({ movieId: propMovieId, displayName: propDisplayName }) => {
-  const { movieId: paramMovieId, displayName: paramDisplayName } = useParams<{
+const RelatedMovies: React.FC = () => {
+  const { movieId: paramMovieId } = useParams<{
     movieId: string;
-    displayName: string;
+
   }>();
 
-  const movieId = propMovieId || paramMovieId;
-  const displayName = propDisplayName || paramDisplayName;
 
   const [similar, setSimilar] = useState<Movie[]>([]);
   const [loading, setLoading] = useState(true);
@@ -72,13 +66,12 @@ const RelatedMovies: React.FC<RelatedMoviesProps> = ({ movieId: propMovieId, dis
   // }, []);
 
   const fetchData = async () => {
-    if (!movieId) return;
 
     setLoading(true);
     setError(null);
 
     try {
-      common.popularList(movieId).then(data => {
+      common.popularList().then(data => {
         return data.json();
       }).then(data => {
         setSimilar(data.results || []);
@@ -134,7 +127,7 @@ const RelatedMovies: React.FC<RelatedMoviesProps> = ({ movieId: propMovieId, dis
 
   useEffect(() => {
     fetchData();
-  }, [movieId]);
+  }, []);
 
 
   const closeTrailer = () => {

@@ -2,7 +2,7 @@ const options = {
     method: 'GET',
     headers: {
         accept: 'application/json',
-        Authorization: `Bearer ${process.env.REACT_APP_TMDB_TOKEN}` 
+        Authorization: `Bearer ${process.env.REACT_APP_TMDB_TOKEN}`
     }
 };
 
@@ -22,7 +22,7 @@ const genreList = async () => {
     return await fetch('https://api.themoviedb.org/3/genre/movie/list?language=en', options)
 };
 
-const popularList = async (movieId: string) => {
+const popularList = async () => {
     return await fetch(`https://api.themoviedb.org/3/movie/popular?language=en-US&page=1`, options)
 };
 
