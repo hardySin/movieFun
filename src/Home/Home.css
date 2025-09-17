@@ -1,4 +1,4 @@
-/* Home.css */
+ /* Home.css - Mobile Enhanced Version */
 .home-page {
   overflow-x: hidden;
 }
@@ -7,6 +7,7 @@
 .hero-carousel-home {
   position: relative;
   height: 100vh;
+  min-height: 600px; /* Added minimum height for mobile */
   overflow: hidden;
 }
 
@@ -33,6 +34,8 @@
   max-width: 600px;
   color: white;
   padding: 2rem;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .hero-badge-home {
@@ -57,6 +60,7 @@
   gap: 1.5rem;
   margin-bottom: 1.5rem;
   font-size: 1.1rem;
+  flex-wrap: wrap;
 }
 
 .hero-meta-home span {
@@ -83,22 +87,26 @@
 .hero-actions-home {
   display: flex;
   gap: 1rem;
+  flex-wrap: wrap;
 }
 
 .btn-home {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   padding: 1rem 2rem;
   border-radius: 50px;
   font-weight: 600;
   text-decoration: none;
   transition: all 0.3s ease;
   border: 2px solid transparent;
+  min-height: 54px; /* Better touch target */
+  text-align: center;
 }
 
 .btn-primary-home {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: rgb(204, 202, 202);
+  color: white;
   border: none;
 }
 
@@ -108,14 +116,15 @@
 }
 
 .btn-outline-light-home {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: rgb(204, 202, 202);
+  background: transparent;
+  color: white;
   border: 2px solid white;
 }
 
 .btn-outline-light-home:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 /* Carousel Controls */
@@ -136,6 +145,9 @@
   cursor: pointer;
   transition: all 0.3s ease;
   z-index: 10;
+  /* Improved touch target */
+  min-width: 44px;
+  min-height: 44px;
 }
 
 .carousel-control-home:hover {
@@ -168,6 +180,9 @@
   background: rgba(255, 255, 255, 0.5);
   cursor: pointer;
   transition: all 0.3s ease;
+  /* Improved touch target */
+  min-width: 16px;
+  min-height: 16px;
 }
 
 .carousel-indicators-home button.active-home {
@@ -177,12 +192,13 @@
 
 /* Sections */
 .section-py-home {
-  padding: 0rem 0;
+  padding: 3rem 0;
 }
 
 .section-header-home {
   text-align: center;
   margin-bottom: 3rem;
+  padding: 0 1rem;
 }
 
 .section-title-home {
@@ -197,6 +213,7 @@
   color: #718096;
   max-width: 600px;
   margin: 0 auto;
+  line-height: 1.6;
 }
 
 .bg-dark-home {
@@ -216,6 +233,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
+  padding: 0 1rem;
 }
 
 .movie-card-home {
@@ -279,6 +297,9 @@
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
+  /* Improved touch target */
+  min-width: 54px;
+  min-height: 54px;
 }
 
 .play-btn-home:hover {
@@ -311,6 +332,7 @@
   gap: 1rem;
   color: #718096;
   font-size: 0.9rem;
+  flex-wrap: wrap;
 }
 
 /* Stats Section */
@@ -325,6 +347,7 @@
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 2rem;
   text-align: center;
+  padding: 0 1rem;
 }
 
 .stat-item-home {
@@ -351,13 +374,19 @@
 
 /* CTA Section */
 .cta-section-home {
-  background: linear-gradient(rgba(255, 253, 253, 0.007), rgba(255, 253, 253, 0.007)), 
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
               url('https://images.unsplash.com/photo-1489599102910-59206b8ca314?w=1200&h=600&fit=crop');
   background-size: cover;
   background-position: center;
-  color: rgb(8, 8, 8);
-  padding: 1rem 0;
+  color: white;
+  padding: 6rem 0;
   text-align: center;
+}
+
+.cta-content-home {
+  padding: 0 1rem;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .cta-content-home h2 {
@@ -379,12 +408,42 @@
   display: flex;
   gap: 1rem;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
-/* Responsive Design */
+/* Enhanced Responsive Design */
+@media (max-width: 1200px) {
+  .hero-content-home {
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 992px) {
+  .hero-title-home {
+    font-size: 3rem;
+  }
+  
+  .section-title-home {
+    font-size: 2.25rem;
+  }
+  
+  .movies-grid-home {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+}
+
 @media (max-width: 768px) {
+  .hero-carousel-home {
+    height: 80vh;
+    min-height: 500px;
+  }
+  
   .hero-title-home {
     font-size: 2.5rem;
+  }
+  
+  .hero-description-home {
+    font-size: 1.1rem;
   }
   
   .hero-meta-home {
@@ -410,7 +469,7 @@
   }
   
   .movies-grid-home {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   }
   
   .stats-grid-home {
@@ -421,15 +480,46 @@
     flex-direction: column;
     align-items: center;
   }
+  
+  .section-py-home {
+    padding: 2rem 0;
+  }
+  
+  .movie-poster-home {
+    height: 350px;
+  }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 576px) {
+  .hero-carousel-home {
+    height: 70vh;
+    min-height: 450px;
+  }
+  
   .hero-title-home {
     font-size: 2rem;
+    line-height: 1.3;
+  }
+  
+  .hero-content-home {
+    padding: 1rem;
+    text-align: center;
+  }
+  
+  .hero-badge-home {
+    margin: 0 auto 1.5rem;
+  }
+  
+  .hero-meta-home {
+    justify-content: center;
   }
   
   .section-title-home {
     font-size: 2rem;
+  }
+  
+  .section-subtitle-home {
+    font-size: 1.1rem;
   }
   
   .stats-grid-home {
@@ -438,5 +528,112 @@
   
   .stat-content-home h3 {
     font-size: 2rem;
+  }
+  
+  .cta-content-home h2 {
+    font-size: 2rem;
+  }
+  
+  .cta-content-home p {
+    font-size: 1.1rem;
+  }
+  
+  .movie-poster-home {
+    height: 300px;
+  }
+  
+  .movie-info-home {
+    padding: 1rem;
+  }
+  
+  .carousel-indicators-home {
+    bottom: 1rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .hero-title-home {
+    font-size: 1.75rem;
+  }
+  
+  .hero-description-home {
+    font-size: 1rem;
+  }
+  
+  .btn-home {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.95rem;
+  }
+  
+  .movies-grid-home {
+    grid-template-columns: 1fr;
+  }
+  
+  .movie-meta-home {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+/* Reduced motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .hero-slide-home,
+  .movie-card-home,
+  .play-btn-home,
+  .btn-home,
+  .carousel-control-home,
+  .carousel-indicators-home button {
+    transition: none;
+  }
+  
+  .movie-card-home:hover,
+  .play-btn-home:hover,
+  .btn-home:hover {
+    transform: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .hero-badge-home,
+  .carousel-control-home,
+  .btn-outline-light-home {
+    border: 2px solid white;
+  }
+  
+  .movie-card-home {
+    border: 1px solid #e2e8f0;
+  }
+}
+
+/* Mobile landscape orientation */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero-carousel-home {
+    height: 100vh;
+    min-height: 400px;
+  }
+  
+  .hero-content-home {
+    padding: 1rem;
+    max-width: 90%;
+  }
+  
+  .hero-title-home {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .hero-description-home {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .hero-actions-home {
+    gap: 0.5rem;
+  }
+  
+  .btn-home {
+    padding: 0.75rem 1.5rem;
+    min-height: 44px;
   }
 }

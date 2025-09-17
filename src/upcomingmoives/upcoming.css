@@ -3,7 +3,7 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: 1rem;
   box-sizing: border-box;
 }
 
@@ -32,7 +32,8 @@
 /* Header */
 .header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
+  padding: 0 0.5rem;
 }
 
 .title {
@@ -40,15 +41,16 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  font-size: 2.5rem;
+  font-size: 1.75rem;
   font-weight: bold;
   color: #1976d2;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
 }
 
 .title-underline {
-  height: 4px;
-  width: 100px;
+  height: 3px;
+  width: 80px;
   background-color: #1976d2;
   margin: 0 auto;
   border-radius: 2px;
@@ -56,11 +58,12 @@
 
 /* Carousel */
 .carousel-container {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
+  padding: 0 0.5rem;
 }
 
 .carousel-item {
-  padding: 0 1rem;
+  padding: 0 0.5rem;
   box-sizing: border-box;
 }
 
@@ -77,23 +80,23 @@
 }
 
 .card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
 }
 
 .card-image {
   width: 100%;
-  height: 400px;
+  height: 200px;
   object-fit: cover;
 }
 
 .card-content {
-  padding: 1rem;
+  padding: 0.75rem;
   flex-grow: 1;
 }
 
 .card-title {
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   margin: 0 0 0.5rem 0;
   white-space: nowrap;
   overflow: hidden;
@@ -101,7 +104,7 @@
 }
 
 .card-title-small {
-  font-size: 1rem;
+  font-size: 0.9rem;
   margin: 0 0 0.5rem 0;
   white-space: nowrap;
   overflow: hidden;
@@ -113,6 +116,8 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+  gap: 0.25rem;
 }
 
 .card-description {
@@ -122,23 +127,25 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   margin: 0;
-  line-height: 1.5;
+  line-height: 1.4;
+  font-size: 0.9rem;
 }
 
 .card-actions {
-  padding: 1rem;
+  padding: 0.75rem;
 }
 
 /* Chips */
 .chip {
   display: inline-block;
-  padding: 0.25rem 0.5rem;
-  font-size: 0.75rem;
+  padding: 0.2rem 0.4rem;
+  font-size: 0.7rem;
   font-weight: 500;
-  border-radius: 16px;
+  border-radius: 12px;
   border: 1px solid #1976d2;
   color: #1976d2;
   background-color: transparent;
+  white-space: nowrap;
 }
 
 .chip-primary {
@@ -157,14 +164,14 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
   font-weight: 500;
   border-radius: 4px;
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  gap: 0.5rem;
+  gap: 0.4rem;
   width: 100%;
 }
 
@@ -178,24 +185,25 @@
 }
 
 .btn-small {
-  padding: 0.5rem 1rem;
-  font-size: 0.875rem;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.8rem;
 }
 
 /* Grid Layout */
 .grid-container {
   display: none;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
+  padding: 0 0.5rem;
 }
 
 .movie-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
+  grid-template-columns: 1fr;
+  gap: 1rem;
 }
 
 .grid-item .card-image {
-  height: 300px;
+  height: 180px;
 }
 
 /* Alert */
@@ -205,16 +213,19 @@
   left: 50%;
   transform: translateX(-50%);
   z-index: 1000;
+  width: 90%;
+  max-width: 400px;
 }
 
 .alert {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0.75rem 1.5rem;
+  padding: 0.6rem 1rem;
   border-radius: 4px;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
-  min-width: 300px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .alert-warning {
@@ -226,47 +237,10 @@
   background: none;
   border: none;
   color: inherit;
-  font-size: 1.25rem;
+  font-size: 1.1rem;
   cursor: pointer;
-  margin-left: 1rem;
-}
-
-/* Responsive Design */
-@media (max-width: 900px) {
-  .title {
-    font-size: 2rem;
-  }
-  
-  .carousel-container {
-    display: none;
-  }
-  
-  .grid-container {
-    display: block;
-  }
-}
-
-@media (min-width: 600px) {
-  .movie-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 600px) {
-  .title {
-    font-size: 1.75rem;
-  }
-  
-  .movie-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
-}
-
-@media (max-width: 400px) {
-  .movie-grid {
-    grid-template-columns: 1fr;
-  }
+  margin-left: 0.75rem;
+  flex-shrink: 0;
 }
 
 /* Carousel customizations */
@@ -276,25 +250,125 @@
 
 .carousel .control-dots .dot {
   background: #1976d2;
+  width: 10px;
+  height: 10px;
 }
 
 .carousel .control-arrow {
   background: rgba(0, 0, 0, 0.2) !important;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  top: 50%;
-  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  top: 40%;
+  opacity: 0.8;
 }
 
 .carousel .control-arrow:before {
   margin: 0;
+  font-size: 16px;
 }
 
 .carousel .control-prev {
-  left: 10px;
+  left: 5px;
 }
 
 .carousel .control-next {
-  right: 10px;
+  right: 5px;
+}
+
+/* Responsive Design */
+@media (min-width: 480px) {
+  .movie-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .card-image {
+    height: 220px;
+  }
+  
+  .grid-item .card-image {
+    height: 200px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 1.5rem;
+  }
+  
+  .title {
+    font-size: 2rem;
+  }
+  
+  .card-image {
+    height: 280px;
+  }
+  
+  .grid-item .card-image {
+    height: 240px;
+  }
+  
+  .carousel-container {
+    display: block;
+  }
+  
+  .grid-container {
+    display: none;
+  }
+  
+  .movie-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .movie-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .card-image {
+    height: 320px;
+  }
+  
+  .grid-item .card-image {
+    height: 280px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .movie-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  
+  .card-image {
+    height: 350px;
+  }
+  
+  .grid-item .card-image {
+    height: 300px;
+  }
+}
+
+/* Touch device improvements */
+@media (hover: none) {
+  .card:hover {
+    transform: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .btn:active {
+    background-color: #1565c0;
+    transform: scale(0.98);
+  }
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    animation-duration: 2s;
+  }
+  
+  .card {
+    transition: none;
+  }
 }

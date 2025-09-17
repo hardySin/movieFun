@@ -1,6 +1,6 @@
-/* MovieSearch.css */
+/* MovieSearch.css - Mobile Enhanced Version */
 .movie-search-container {
-  padding: 2rem;
+  padding: 1rem;
   max-width: 1200px;
   margin: 0 auto;
   background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
@@ -10,27 +10,29 @@
 
 .search-header {
   text-align: center;
-  margin-bottom: 2rem;
-  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding: 1.25rem;
   background: white;
-  border-radius: 16px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .search-header h1 {
-  font-size: 2.5rem;
+  font-size: 1.75rem;
   margin-bottom: 0.5rem;
   background: linear-gradient(90deg, #3b82f6, #ec4899);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   font-weight: 700;
+  line-height: 1.3;
 }
 
 .search-header p {
   color: #64748b;
-  font-size: 1.1rem;
-  margin: 0 0 1.5rem 0;
+  font-size: 1rem;
+  margin: 0 0 1.25rem 0;
+  line-height: 1.5;
 }
 
 .search-controls {
@@ -44,7 +46,7 @@
 .search-input-container {
   position: relative;
   flex: 1;
-  min-width: 300px;
+  min-width: 0; /* Allows flex item to shrink properly */
 }
 
 .search-icon {
@@ -53,15 +55,18 @@
   top: 50%;
   transform: translateY(-50%);
   color: #94a3b8;
+  z-index: 2;
 }
 
 .search-input {
   width: 100%;
-  padding: 0.75rem 1rem 0.75rem 3rem;
+  padding: 0.875rem 1rem 0.875rem 3rem;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
-  font-size: 1rem;
+  font-size: 16px; /* Prevents zoom on iOS */
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background: #ffffff;
+  min-height: 50px; /* Better touch target */
 }
 
 .search-input:focus {
@@ -78,13 +83,18 @@
 }
 
 .view-toggle button {
-  padding: 0.5rem;
+  padding: 0.75rem;
   border: none;
   background: transparent;
   border-radius: 6px;
   cursor: pointer;
   color: #64748b;
   transition: all 0.3s ease;
+  min-width: 44px; /* Minimum touch target */
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .view-toggle button.active {
@@ -104,6 +114,8 @@
   background: white;
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  margin: 1rem 0;
 }
 
 .spinner {
@@ -120,14 +132,13 @@
   0% {
     transform: rotate(0deg);
   }
-
   100% {
     transform: rotate(360deg);
   }
 }
 
 .results-info {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
   padding: 0.75rem 1rem;
   background: white;
   border-radius: 8px;
@@ -138,11 +149,12 @@
   margin: 0;
   color: #64748b;
   font-weight: 500;
+  font-size: 0.95rem;
 }
 
 .movies-container {
   display: grid;
-  gap: 1.5rem;
+  gap: 1.25rem;
 }
 
 .movies-container.grid {
@@ -155,11 +167,12 @@
 
 .movies-container.list .movie-card-search {
   display: flex;
-  height: 200px;
+  height: auto;
+  min-height: 150px;
 }
 
 .movies-container.list .movie-poster-search {
-  width: 150px;
+  width: 120px;
   height: 100%;
   flex-shrink: 0;
 }
@@ -175,23 +188,16 @@
   white-space: nowrap;
   width: 0;
   animation: typing 4s steps(40, end) forwards;
-  border-right: 3px solid #fff;
-}
-
-.typing {
-  border-right: none;
 }
 
 @keyframes typing {
   from {
     width: 0;
   }
-
   to {
     width: 100%;
   }
 }
-
 
 .movie-card-search {
   background: white;
@@ -203,8 +209,8 @@
 }
 
 .movie-card-search:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px -5px rgba(0, 0, 0, 0.1);
 }
 
 .movie-poster-search {
@@ -260,11 +266,12 @@
   display: flex;
   align-items: center;
   background: rgba(255, 255, 255, 0.9);
-  padding: 0.4rem 0.8rem;
+  padding: 0.5rem 0.875rem;
   border-radius: 20px;
   font-weight: 600;
   font-size: 0.9rem;
   color: #1e293b;
+  min-height: 32px; /* Better touch target */
 }
 
 .rating-icon {
@@ -277,8 +284,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   background: rgba(59, 130, 246, 0.9);
   border: none;
   border-radius: 50%;
@@ -289,6 +296,8 @@
   font-size: 1.2rem;
   cursor: pointer;
   transition: transform 0.3s ease, background 0.3s ease;
+  min-width: 50px;
+  min-height: 50px;
 }
 
 .play-button:hover {
@@ -297,14 +306,14 @@
 }
 
 .movie-info {
-  padding: 1.25rem;
+  padding: 1rem;
 }
 
 .movie-title {
   font-size: 1.1rem;
   font-weight: 600;
-  margin-bottom: 0.75rem;
-  color: #f2f3f5;
+  margin-bottom: 0.5rem;
+  color: #1f2937;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -314,41 +323,45 @@
 
 .movie-meta {
   display: flex;
-  gap: 1rem;
+  gap: 0.75rem;
   margin-bottom: 0.75rem;
+  flex-wrap: wrap;
 }
 
 .meta-item {
   display: flex;
   align-items: center;
   color: #64748b;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  white-space: nowrap;
 }
 
 .meta-icon {
   margin-right: 0.4rem;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  flex-shrink: 0;
 }
 
 .movie-genres {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.4rem;
   margin-bottom: 0.75rem;
 }
 
 .genre-tag {
   background: #f1f5f9;
   color: #475569;
-  padding: 0.25rem 0.5rem;
+  padding: 0.3rem 0.6rem;
   border-radius: 4px;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 500;
+  line-height: 1.2;
 }
 
 .movie-overview {
   color: #64748b;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   line-height: 1.5;
   display: -webkit-box;
   -webkit-line-clamp: 3;
@@ -364,13 +377,14 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(0, 0, 0, 0.8);
   backdrop-filter: blur(5px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
   padding: 1rem;
+  overflow-y: auto;
 }
 
 .modal-content-search {
@@ -386,17 +400,24 @@
 }
 
 .modal-header-search {
-  padding: 1.5rem;
+  padding: 1.25rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #e2e8f0;
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 10;
+  border-radius: 16px 16px 0 0;
 }
 
-.modal-header h2 {
+.modal-header-search h2 {
   margin: 0;
   color: #1e293b;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
+  line-height: 1.4;
+  padding-right: 1rem;
 }
 
 .close-button {
@@ -405,14 +426,15 @@
   font-size: 1.5rem;
   color: #64748b;
   cursor: pointer;
-  padding: 0;
-  width: 30px;
-  height: 30px;
+  padding: 0.5rem;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
   transition: background 0.3s ease;
+  flex-shrink: 0;
 }
 
 .close-button:hover {
@@ -421,13 +443,13 @@
 }
 
 .modal-body-search {
-  padding: 1.5rem;
+  padding: 1.25rem;
   display: flex;
-  gap: 1.5rem;
+  gap: 1.25rem;
 }
 
 .modal-poster {
-  flex: 0 0 300px;
+  flex: 0 0 250px;
 }
 
 .modal-poster img {
@@ -438,6 +460,7 @@
 
 .modal-details {
   flex: 1;
+  min-width: 0; /* Prevents overflow issues */
 }
 
 .detail-item {
@@ -449,29 +472,32 @@
   color: #374151;
   margin-bottom: 0.25rem;
   font-weight: 600;
+  font-size: 0.95rem;
 }
 
 .detail-item.overview p {
   color: #4b5563;
   line-height: 1.6;
   margin: 0.5rem 0 0 0;
+  font-size: 0.95rem;
 }
 
 .genres-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.4rem;
   margin-top: 0.25rem;
 }
 
 .modal-actions {
   display: flex;
-  gap: 1rem;
-  margin-top: 1.5rem;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  flex-wrap: wrap;
 }
 
 .action-button {
-  padding: 0.75rem 1.5rem;
+  padding: 0.875rem 1.25rem;
   border: none;
   border-radius: 8px;
   font-weight: 600;
@@ -480,6 +506,10 @@
   align-items: center;
   gap: 0.5rem;
   transition: all 0.3s ease;
+  min-height: 44px; /* Minimum touch target */
+  flex: 1;
+  justify-content: center;
+  font-size: 0.95rem;
 }
 
 .action-button.primary {
@@ -500,49 +530,237 @@
   background: #e2e8f0;
 }
 
-/* Responsive Design */
+/* Enhanced Responsive Design */
 @media (max-width: 768px) {
   .movie-search-container {
-    padding: 1rem;
+    padding: 0.75rem;
   }
-
+  
+  .search-header {
+    padding: 1rem;
+    margin-bottom: 1.25rem;
+  }
+  
+  .search-header h1 {
+    font-size: 1.5rem;
+  }
+  
   .search-controls {
     flex-direction: column;
     align-items: stretch;
+    gap: 0.75rem;
   }
-
+  
   .search-input-container {
     min-width: auto;
   }
-
+  
+  .view-toggle {
+    align-self: center;
+  }
+  
+  .movies-container.grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+  
   .modal-body-search {
     flex-direction: column;
+    padding: 1rem;
   }
-
+  
   .modal-poster {
     flex: none;
-    max-width: 250px;
+    max-width: 200px;
     margin: 0 auto;
   }
-
+  
   .modal-actions {
     flex-direction: column;
+  }
+  
+  .action-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .movies-container.grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .movies-container.list .movie-poster-search {
+    width: 100px;
+  }
+  
+  .movie-info {
+    padding: 0.75rem;
+  }
+  
+  .movie-title {
+    font-size: 1rem;
+  }
+  
+  .movie-meta {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  
+  .modal-content-search {
+    max-height: 95vh;
+  }
+  
+  .modal-header-search {
+    padding: 1rem;
+  }
+  
+  .modal-header-search h2 {
+    font-size: 1.1rem;
   }
 }
 
 @media (max-width: 480px) {
   .search-header h1 {
-    font-size: 2rem;
+    font-size: 1.35rem;
   }
-
+  
+  .search-header p {
+    font-size: 0.9rem;
+  }
+  
   .movies-container.list .movie-card-search {
     flex-direction: column;
     height: auto;
   }
-
+  
   .movies-container.list .movie-poster-search {
     width: 100%;
     height: auto;
     padding-top: 150%;
   }
+  
+  .play-button {
+    width: 45px;
+    height: 45px;
+    font-size: 1rem;
+  }
+  
+  .rating-badge {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.85rem;
+  }
+  
+  .modal-poster {
+    max-width: 150px;
+  }
+}
+
+@media (max-width: 360px) {
+  .search-header {
+    padding: 0.75rem;
+  }
+  
+  .search-input {
+    padding: 0.75rem 0.875rem 0.75rem 2.75rem;
+    font-size: 14px;
+  }
+  
+  .search-icon {
+    left: 0.75rem;
+  }
+  
+  .view-toggle button {
+    padding: 0.5rem;
+    min-width: 40px;
+    min-height: 40px;
+  }
+  
+  .movie-card-search {
+    border-radius: 8px;
+  }
+}
+
+/* Reduced motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .movie-card-search,
+  .play-button,
+  .view-toggle button,
+  .action-button,
+  .close-button,
+  .search-input,
+  .movie-poster-search img,
+  .movie-overlay,
+  .spinner {
+    transition: none;
+    animation: none;
+  }
+  
+  .movie-card-search:hover {
+    transform: none;
+  }
+  
+  .play-button:hover {
+    transform: translate(-50%, -50%);
+  }
+  
+  .spinner {
+    animation: none;
+    border-right-color: #3b82f6;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .movie-card-search,
+  .modal-content-search,
+  .search-header {
+    border: 2px solid #000;
+  }
+  
+  .view-toggle button {
+    border: 1px solid #000;
+  }
+  
+  .view-toggle button.active {
+    border: 2px solid #000;
+  }
+  
+  .search-input {
+    border: 2px solid #000;
+  }
+}
+
+/* Mobile landscape orientation */
+@media (max-height: 500px) and (orientation: landscape) {
+  .movie-modal {
+    align-items: flex-start;
+    padding-top: 2rem;
+  }
+  
+  .modal-content-search {
+    max-height: 80vh;
+  }
+}
+
+/* Prevent horizontal scrolling */
+.movie-search-container {
+  overflow-x: hidden;
+}
+
+/* Improved touch feedback */
+.movie-card-search:active,
+.view-toggle button:active,
+.action-button:active,
+.close-button:active {
+  transform: scale(0.98);
+}
+
+/* Focus styles for accessibility */
+.search-input:focus,
+.view-toggle button:focus,
+.action-button:focus,
+.close-button:focus,
+.play-button:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
 }

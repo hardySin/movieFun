@@ -1,4 +1,4 @@
-/* footer.css */
+ /* footer.css - Mobile Enhanced Version */
 .footer {
   background-color: #212529;
   color: #fff;
@@ -73,6 +73,9 @@
   color: #fff;
   text-decoration: none;
   transition: all 0.3s ease;
+  /* Improved touch target */
+  min-width: 44px;
+  min-height: 44px;
 }
 
 .footer-social-link:hover {
@@ -103,6 +106,11 @@
   text-decoration: none;
   transition: color 0.3s ease;
   font-size: 0.95rem;
+  /* Improved touch target */
+  padding: 0.5rem 0;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
 }
 
 .footer-nav-link:hover {
@@ -150,6 +158,9 @@
   background-color: transparent;
   color: #fff;
   font-size: 0.95rem;
+  /* Prevent zoom on iOS */
+  font-size: 16px;
+  min-height: 50px;
 }
 
 .footer-newsletter-input:focus {
@@ -172,6 +183,9 @@
   cursor: pointer;
   transition: all 0.3s ease;
   white-space: nowrap;
+  /* Improved touch target */
+  min-height: 50px;
+  font-size: 16px;
 }
 
 .footer-newsletter-btn:hover {
@@ -200,6 +214,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.25rem;
+  flex-wrap: wrap;
 }
 
 .footer-heart-icon {
@@ -219,13 +234,24 @@
   text-decoration: none;
   font-size: 0.875rem;
   transition: color 0.3s ease;
+  /* Improved touch target */
+  padding: 0.5rem;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
 }
 
 .footer-legal-link:hover {
   color: #0d6efd;
 }
 
-/* Responsive Design */
+/* Enhanced Responsive Design */
+@media (max-width: 1200px) {
+  .footer-container {
+    padding: 0 1.5rem;
+  }
+}
+
 @media (max-width: 992px) {
   .footer-row {
     gap: 1.5rem;
@@ -233,6 +259,20 @@
   
   .footer-col {
     flex: 0 0 calc(50% - 1.5rem);
+    min-width: calc(50% - 1.5rem);
+  }
+  
+  .footer-company {
+    min-width: calc(50% - 1.5rem);
+  }
+  
+  .footer-brand-content {
+    justify-content: center;
+    text-align: center;
+  }
+  
+  .footer-social-links {
+    justify-content: center;
   }
 }
 
@@ -249,6 +289,8 @@
   .footer-col {
     flex: 1;
     min-width: 100%;
+    width: 100%;
+    text-align: center;
   }
   
   .footer-newsletter-group {
@@ -259,20 +301,78 @@
     flex-direction: column;
     gap: 0.75rem;
   }
+  
+  .footer-title {
+    text-align: center;
+  }
+  
+  .footer-nav {
+    align-items: center;
+  }
+  
+  .footer-contact-info {
+    align-items: center;
+  }
+  
+  .footer-contact-item {
+    justify-content: center;
+  }
+  
+  .footer-newsletter {
+    text-align: center;
+  }
 }
 
 @media (max-width: 576px) {
   .footer-container {
-    padding: 0 0.5rem;
+    padding: 0 1rem;
   }
   
   .footer-brand-content {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: 0.75rem;
   }
   
+  .footer-copyright-text {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
   .footer-social-links {
+    flex-wrap: wrap;
     justify-content: center;
+  }
+  
+  .footer-brand-text {
+    font-size: 1.25rem;
+  }
+  
+  .footer-title {
+    font-size: 1rem;
+  }
+}
+
+/* Reduced motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  .footer-social-link,
+  .footer-nav-link,
+  .footer-legal-link,
+  .footer-newsletter-btn {
+    transition: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .footer {
+    border-top: 2px solid #fff;
+  }
+  
+  .footer-nav-link,
+  .footer-legal-link,
+  .footer-contact-text,
+  .footer-description {
+    color: #fff;
   }
 }
