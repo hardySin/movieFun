@@ -121,7 +121,6 @@ const RelatedMovies: React.FC = () => {
     } catch (error) {
       console.error("Error fetching trailer:", error);
     }
-
   };
 
 
