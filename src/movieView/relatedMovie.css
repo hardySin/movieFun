@@ -151,6 +151,7 @@
   font-weight: 700;
   font-size: 0.9rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  margin: 0.5rem 2rem ;
 }
 
 .rating-icon {
@@ -178,7 +179,7 @@
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.2s ease;
-  width: 100%;
+  width: 89%;
 }
 
 .movie-action-btn:hover {
