@@ -151,7 +151,6 @@ const Upcoming: React.FC = () => {
 
         {/* Grid Layout for mobile */}
         <div className="grid-container">
-          <h2 className="grid-title">Upcoming Movies</h2>
           <div className="movie-grid">
             {movies.slice(0, 6).map((movie) => {
               const poster = `https://image.tmdb.org/t/p/w500${movie.poster_path}`;
