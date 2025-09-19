@@ -9,7 +9,11 @@ import {
   People,
   Chat,
   Share,
-  X
+  X,
+  Heart,
+  Bookmark,
+  Images,
+  Ticket
 } from 'react-bootstrap-icons';
 import YouTube from 'react-youtube';
 import LoginHeader from '../header/loginHeader';
@@ -38,6 +42,7 @@ interface MovieDetails {
   runtime: number;
   release_date: string;
   tagline: string;
+  poster_path: string;
 }
 
 export default function ViewMovies() {
@@ -54,6 +59,8 @@ export default function ViewMovies() {
   const [showTrailer, setShowTrailer] = useState(false);
   const [youTubeKey, setYouTubeKey] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState('overview');
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [isWatchlist, setIsWatchlist] = useState(false);
 
   const opts = {
     height: '527',
@@ -175,23 +182,45 @@ export default function ViewMovies() {
     });
   };
 
+  const toggleFavorite = () => {
+    setIsFavorite(!isFavorite);
+  };
+
+  const toggleWatchlist = () => {
+    setIsWatchlist(!isWatchlist);
+  };
+
+  const shareMovie = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: movieDetails?.title,
+        text: `Check out ${movieDetails?.title} on our movie app!`,
+        url: window.location.href,
+      })
+      .catch((error) => console.log('Error sharing', error));
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      alert('Link copied to clipboard!');
+    }
+  };
+
   if (loading) {
     return (
-      <div className="min-vh-100-movie d-flex-movie align-items-center-movie justify-content-center-movie">
-        <div className="spinner-movie"></div>
-        <span className="ms-3-movie">Loading movie details...</span>
+      <div className="details-loading-container">
+        <div className="details-spinner"></div>
+        <span className="details-loading-text">Loading movie details...</span>
       </div>
     );
   }
 
   if (error || !movieDetails) {
     return (
-      <div className="container-movie text-center-movie py-5-movie">
-        <div className="error-icon-movie mb-3-movie">⚠️</div>
-        <h3 className="text-danger-movie">Oops! Something went wrong</h3>
-        <p className="text-muted-movie mb-4-movie">{error || 'Movie not found'}</p>
-        <button className="btn-primary-movie" onClick={() => navigate(-1)}>
-          <ArrowLeft className="me-2-movie" />
+      <div className="details-error-container">
+        <div className="details-error-icon">🎬</div>
+        <h3 className="details-error-title">Oops! Something went wrong</h3>
+        <p className="details-error-message">{error || 'Movie not found'}</p>
+        <button className="details-primary-btn" onClick={() => navigate(-1)}>
+          <ArrowLeft className="details-btn-icon" />
           Go Back
         </button>
       </div>
@@ -199,74 +228,101 @@ export default function ViewMovies() {
   }
 
   const backdropPath = `https://image.tmdb.org/t/p/w1280${movieDetails.backdrop_path}`;
+  const posterPath = `https://image.tmdb.org/t/p/w300${movieDetails.poster_path}`;
 
   return (
     <>
       <LoginHeader name={displayName ?? ''} />
 
       {/* Hero Section */}
-      <div className="movie-hero-movie">
+      <div className="details-hero">
         <div
-          className="hero-backdrop-movie"
+          className="details-hero-backdrop"
           style={{ backgroundImage: `url(${backdropPath})` }}
         >
-          <div className="hero-overlay-movie">
-            <div className="container-movie">
+          <div className="details-hero-overlay">
+            <div className="details-container">
               <button
-                className="back-btn-movie mb-4-movie"
+                className="details-back-btn"
                 onClick={() => navigate(-1)}
               >
-                <ArrowLeft className="me-2-movie" />
+                <ArrowLeft className="details-btn-icon" />
                 Back
               </button>
 
-              <div className="hero-content-movie">
-                <div className="hero-info-movie">
-                  <span className="badge-primary-movie mb-3-movie">Now Streaming</span>
-                  <h1 className="movie-title-movie">{movieDetails.title}</h1>
+              <div className="details-hero-content">
+                <div className="details-hero-poster">
+                  <img src={posterPath} alt={movieDetails.title} className="details-poster-img" />
+                </div>
+                
+                <div className="details-hero-info">
+                  <div className="details-status-badge">
+                    <span className="details-status-text">Now Streaming</span>
+                  </div>
+                  
+                  <h1 className="details-title">{movieDetails.title}</h1>
 
                   {movieDetails.tagline && (
-                    <p className="movie-tagline-movie">{movieDetails.tagline}</p>
+                    <p className="details-tagline">{movieDetails.tagline}</p>
                   )}
 
-                  <div className="movie-meta-movie">
-                    <div className="meta-item-movie">
-                      <StarFill className="text-warning-movie me-1-movie" />
+                  <div className="details-meta">
+                    <div className="details-meta-item">
+                      <StarFill className="details-meta-icon rating" />
                       <span>{movieDetails.vote_average.toFixed(1)}/10</span>
                     </div>
 
                     {movieDetails.runtime > 0 && (
-                      <div className="meta-item-movie">
-                        <Clock className="me-1-movie" />
+                      <div className="details-meta-item">
+                        <Clock className="details-meta-icon" />
                         <span>{formatRuntime(movieDetails.runtime)}</span>
                       </div>
                     )}
 
                     {movieDetails.release_date && (
-                      <div className="meta-item-movie">
-                        <Calendar className="me-1-movie" />
+                      <div className="details-meta-item">
+                        <Calendar className="details-meta-icon" />
                         <span>{formatDate(movieDetails.release_date)}</span>
                       </div>
                     )}
                   </div>
 
-                  <div className="hero-actions-movie">
+                  <div className="details-action-buttons">
                     {youTubeKey && (
                       <button
-                        className="btn-primary-movie play-btn-movie"
+                        className="details-primary-btn details-trailer-btn"
                         onClick={playVideo}
                       >
-                        <PlayFill className="me-2-movie" />
+                        <PlayFill className="details-btn-icon" />
                         Watch Trailer
                       </button>
                     )}
 
-                    <button onClick={() => moveToGallery(movieId)} className="btn-outline-movie">
+                    <button className="details-secondary-btn" onClick={toggleFavorite}>
+                      <Heart className={`details-btn-icon ${isFavorite ? 'favorite' : ''}`} />
+                      {isFavorite ? 'Liked' : 'Like'}
+                    </button>
+
+                    <button className="details-secondary-btn" onClick={toggleWatchlist}>
+                      <Bookmark className={`details-btn-icon ${isWatchlist ? 'watchlist' : ''}`} />
+                      Watchlist
+                    </button>
+
+                    <button className="details-secondary-btn" onClick={shareMovie}>
+                      <Share className="details-btn-icon" />
+                      Share
+                    </button>
+                  </div>
+
+                  <div className="details-quick-actions">
+                    <button onClick={() => moveToGallery(movieId)} className="details-quick-action-btn">
+                      <Images className="details-quick-action-icon" />
                       Gallery
                     </button>
 
-                    <button onClick={() => watchProvider(movieId)} className="btn-outline-movie">
-                      MovieProvider
+                    <button onClick={() => watchProvider(movieId)} className="details-quick-action-btn">
+                      <Ticket className="details-quick-action-icon" />
+                      Where to Watch
                     </button>
                   </div>
                 </div>
@@ -277,157 +333,163 @@ export default function ViewMovies() {
       </div>
 
       {/* Content Section */}
-      <div className="container-movie movie-content">
-        <div className="tabs-movie">
-          <div className="tab-headers-movie">
-            <button
-              className={activeTab === 'overview' ? 'tab-header-movie active-movie' : 'tab-header-movie'}
-              onClick={() => setActiveTab('overview')}
-            >
-              <Chat className="me-2-movie" />Overview
-            </button>
-            <button
-              className={activeTab === 'cast' ? 'tab-header-movie active-movie' : 'tab-header-movie'}
-              onClick={() => setActiveTab('cast')}
-            >
-              <People className="me-2-movie" />Cast
-            </button>
-          </div>
+      <div className="details-content-container">
+        <div className="details-container">
+          <div className="details-tabs">
+            <div className="details-tab-headers">
+              <button
+                className={activeTab === 'overview' ? 'details-tab-header active' : 'details-tab-header'}
+                onClick={() => setActiveTab('overview')}
+              >
+                <Chat className="details-tab-icon" />
+                <span>Overview</span>
+              </button>
+              <button
+                className={activeTab === 'cast' ? 'details-tab-header active' : 'details-tab-header'}
+                onClick={() => setActiveTab('cast')}
+              >
+                <People className="details-tab-icon" />
+                <span>Cast</span>
+              </button>
+            </div>
 
-          <div className="tab-content-movie">
-            {activeTab === 'overview' && (
-              <div className="tab-pane-movie">
-                <div className="row-movie">
-                  <div className="col-lg-8-movie">
-                    <div className="card-movie overview-card-movie">
-                      <div className="card-body-movie">
-                        <h3 className="card-title-movie">Storyline</h3>
-                        <p className="overview-text-movie">{movieDetails.overview}</p>
+            <div className="details-tab-content">
+              {activeTab === 'overview' && (
+                <div className="details-tab-pane">
+                  <div className="details-content-grid">
+                    <div className="details-main-content">
+                      <div className="details-card">
+                        <div className="details-card-body">
+                          <h3 className="details-card-title">Storyline</h3>
+                          <p className="details-overview">{movieDetails.overview}</p>
 
-                        <div className="genres-section-movie">
-                          <h5 className="section-title-movie">Genres</h5>
-                          <div className="genres-list-movie">
-                            {movieDetails.genres.map(genre => (
-                              <span
-                                key={genre.id}
-                                className="badge-outline-movie"
-                                onClick={() => { navigate(`/search/${genre.id}`) }}
-                              >
-                                {genre.name}
+                          <div className="details-genres-section">
+                            <h4 className="details-section-title">Genres</h4>
+                            <div className="details-genres-list">
+                              {movieDetails.genres.map(genre => (
+                                <span
+                                  key={genre.id}
+                                  className="details-genre-tag"
+                                  onClick={() => { navigate(`/search/${genre.id}`) }}
+                                >
+                                  {genre.name}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="details-sidebar">
+                      <div className="details-card">
+                        <div className="details-card-body">
+                          <h4 className="details-card-title">Movie Details</h4>
+
+                          <div className="details-info-list">
+                            <div className="details-info-item">
+                              <strong>Release Date:</strong>
+                              <span>{formatDate(movieDetails.release_date)}</span>
+                            </div>
+
+                            {movieDetails.runtime > 0 && (
+                              <div className="details-info-item">
+                                <strong>Runtime:</strong>
+                                <span>{formatRuntime(movieDetails.runtime)}</span>
+                              </div>
+                            )}
+
+                            <div className="details-info-item">
+                              <strong>Rating:</strong>
+                              <span>
+                                <StarFill className="details-rating-icon" />
+                                {movieDetails.vote_average.toFixed(1)}/10
                               </span>
-                            ))}
+                            </div>
+
+                            <div className="details-info-item">
+                              <strong>Genres:</strong>
+                              <span>
+                                {movieDetails.genres.map(g => g.name).join(', ')}
+                              </span>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
+                </div>
+              )}
 
-                  <div className="col-lg-4-movie">
-                    <div className="card-movie info-card-movie">
-                      <div className="card-body-movie">
-                        <h5 className="card-title-movie">Movie Details</h5>
-
-                        <div className="info-item-movie">
-                          <strong>Release Date:</strong>
-                          <span>{formatDate(movieDetails.release_date)}</span>
+              {activeTab === 'cast' && (
+                <div className="details-tab-pane">
+                  <div className="details-card">
+                    <div className="details-card-body">
+                      <h3 className="details-card-title">Cast</h3>
+                      {cast.length > 0 ? (
+                        <div className="details-cast-grid">
+                          {cast.slice(0, 18).map((member) => (
+                            <div key={member.id} className="details-cast-member" onClick={() => navigate(`/actor/profile/${member.id}`)}>
+                              <div className="details-cast-image">
+                                <img
+                                  src={member.profile_path
+                                    ? `https://image.tmdb.org/t/p/w300${member.profile_path}`
+                                    : 'https://via.placeholder.com/300x450/e2e8f0/64748b?text=No+Image'
+                                  }
+                                  alt={member.name}
+                                  className="details-cast-photo"
+                                  onError={(e) => {
+                                    e.currentTarget.src = 'https://via.placeholder.com/300x450/e2e8f0/64748b?text=No+Image';
+                                  }}
+                                />
+                                <div className="details-cast-overlay">
+                                  <span className="details-cast-view">View Profile</span>
+                                </div>
+                              </div>
+                              <div className="details-cast-info">
+                                <h6 className="details-cast-name">{member.name}</h6>
+                                <p className="details-cast-character">{member.character}</p>
+                              </div>
+                            </div>
+                          ))}
                         </div>
-
-                        {movieDetails.runtime > 0 && (
-                          <div className="info-item-movie">
-                            <strong>Runtime:</strong>
-                            <span>{formatRuntime(movieDetails.runtime)}</span>
-                          </div>
-                        )}
-
-                        <div className="info-item-movie">
-                          <strong>Rating:</strong>
-                          <span>
-                            <StarFill className="text-warning-movie me-1-movie" />
-                            {movieDetails.vote_average.toFixed(1)}/10
-                          </span>
-                        </div>
-
-                        <div className="info-item-movie">
-                          <strong>Genres:</strong>
-                          <span>
-                            {movieDetails.genres.map(g => g.name).join(', ')}
-                          </span>
-                        </div>
-                      </div>
+                      ) : (
+                        <p className="details-no-cast">No cast information available.</p>
+                      )}
                     </div>
                   </div>
                 </div>
-              </div>
-            )}
-
-            {activeTab === 'cast' && (
-              <div className="tab-pane-movie">
-                <div className="card-movie">
-                  <div className="card-body-movie">
-                    <h3 className="card-title-movie">Cast</h3>
-                    {cast.length > 0 ? (
-                      <div className="cast-grid-movie">
-                        {cast.slice(0, 18).map((member) => (
-                          <div key={member.id} className="cast-member-movie" onClick={() => navigate(`/actor/profile/${member.id}`)}>
-                            <div className="cast-image-movie">
-                              <img
-                                src={member.profile_path
-                                  ? `https://image.tmdb.org/t/p/w300${member.profile_path}`
-                                  : 'https://via.placeholder.com/300x450/2d3748/ffffff?text=No+Image'
-                                }
-                                alt={member.name}
-                                className="member-photo-movie"
-                                onError={(e) => {
-                                  e.currentTarget.src = 'https://via.placeholder.com/300x450/2d3748/ffffff?text=No+Image';
-                                }}
-                              />
-                            </div>
-                            <div className="cast-info">
-                              <h6 className="member-name-movie">{member.name}</h6>
-                              <p className="member-character-movie">{member.character}</p>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    ) : (
-                      <p className="text-muted-movie">No cast information available.</p>
-                    )}
-                  </div>
-                </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
-        </div>
 
-        {/* Comments Section */}
-        <div className="card-movie">
-          <div className="card-body-movie">
-            <h3 className="card-title-movie">
-              <Chat className="me-2-movie" />
-              Discussion
-            </h3>
-            <Comment movieId={movieId ?? ''} />
+          {/* Comments Section */}
+          <div className="details-card">
+            <div className="details-card-body">
+              <h3 className="details-card-title">
+                <Chat className="details-card-title-icon" />
+                Discussion
+              </h3>
+              <Comment movieId={movieId ?? ''} />
+            </div>
           </div>
         </div>
       </div>
 
-
-
-
       {/* Trailer Modal */}
       {showTrailer && (
-        <div className="modal-overlay-movie" onClick={handleCloseTrailer}>
-          <div className="modal-content-movie" onClick={(e) => e.stopPropagation()}>
-            <div className="modal-header-movie">
-              <h3 className="modal-title-movie">
-                <PlayFill className="me-2-movie" />
+        <div className="details-modal-overlay" onClick={handleCloseTrailer}>
+          <div className="details-modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="details-modal-header">
+              <h3 className="details-modal-title">
+                <PlayFill className="details-modal-title-icon" />
                 {movieDetails.title} - Trailer
               </h3>
-              <button className="modal-close-movie" onClick={handleCloseTrailer}>
+              <button className="details-modal-close" onClick={handleCloseTrailer}>
                 <X size={24} />
               </button>
             </div>
-            <div className="modal-body-movie">
+            <div className="details-modal-body">
               {youTubeKey && (
                 <YouTube videoId={youTubeKey} opts={opts} />
               )}

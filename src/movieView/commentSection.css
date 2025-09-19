@@ -34,7 +34,7 @@
 }
 
 .comment-textarea {
-  width: 100%;
+  width: 96%;
   padding: 16px;
   border: 2px solid #e2e8f0;
   border-radius: 8px;
@@ -663,10 +663,6 @@
   width: 20px;
   height: 20px;
   margin: -10px 0 0 -10px;
-  border: 2px solid transparent;
-  border-top: 2px solid currentColor;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
