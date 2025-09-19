@@ -298,7 +298,7 @@ export default function ViewMovies() {
                       </button>
                     )}
 
-                    <button className="details-secondary-btn" onClick={toggleFavorite}>
+                    {/* <button className="details-secondary-btn" onClick={toggleFavorite}>
                       <Heart className={`details-btn-icon ${isFavorite ? 'favorite' : ''}`} />
                       {isFavorite ? 'Liked' : 'Like'}
                     </button>
@@ -306,7 +306,7 @@ export default function ViewMovies() {
                     <button className="details-secondary-btn" onClick={toggleWatchlist}>
                       <Bookmark className={`details-btn-icon ${isWatchlist ? 'watchlist' : ''}`} />
                       Watchlist
-                    </button>
+                    </button> */}
 
                     <button className="details-secondary-btn" onClick={shareMovie}>
                       <Share className="details-btn-icon" />
