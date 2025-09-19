@@ -138,7 +138,7 @@ const Upcoming: React.FC = () => {
                           className="btn btn-primary"
                           onClick={() => viewMovie(movie.id)}
                         >
-                          <Visibility /> View Details
+                          <Visibility /> Watch Details
                         </button>
                       </div>
                     </div>

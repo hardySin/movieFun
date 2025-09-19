@@ -221,7 +221,7 @@
   align-items: center;
   color: #94a3b8;
   font-size: 0.9rem;
-  background: #e6e6eb
+  background: #e6e6eb;
   padding: 0.4rem 0.8rem;
   border-radius: 6px;
 }
@@ -258,7 +258,7 @@
 .trailer-modal-content {
   background: #1e293b;
   border-radius: 16px;
-  width: 100%;
+  width: 90%;
   max-width: 900px;
   max-height: 90vh;
   overflow-y: auto;
@@ -307,7 +307,7 @@
 .trailer-video-container {
   position: relative;
   width: 100%;
-  padding-top: 56.25%; /* 16:9 aspect ratio */
+  padding-top: 0.25%; /* 16:9 aspect ratio */
   background: #0f172a;
 }
 

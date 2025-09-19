@@ -128,7 +128,10 @@ const YouTubeGallery: React.FC = () => {
 
                             {expandedSections[section.title] && (
                                 <div className="videos-grid">
-
+                                    {section.videos.length > 0 ? "" :
+                                        <div className="no-videos">
+                                            <p>No watch providers available.</p>
+                                        </div>}
                                     {section.videos.map(video => (
                                         <div key={video.id} className="video-card" onClick={() => openVideo(video)}>
                                             <div className="video-thumbnail">

@@ -407,6 +407,16 @@
   }
 }
 
+.no-videos {
+  text-align: center;
+  padding: 30px;
+  color: #6c757d;
+  background: white;
+  border-radius: 8px;
+  font-style: italic;
+  padding: 0px;
+  
+}
 /* Responsive Design for Desktop */
 @media (min-width: 900px) {
   .videos-grid {

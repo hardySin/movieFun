@@ -179,7 +179,7 @@ const RelatedMovies: React.FC = () => {
                           onClick={() => viewMovie(item.id)}
                         >
                           <Eye className="action-icon" />
-                          View Details
+                          Watch Details
                         </button>
                         <button
                           className="movie-action-btn movie-trailer-btn"
@@ -292,7 +292,7 @@ const RelatedMovies: React.FC = () => {
                       viewMovie(trailerMovie.id);
                     }}
                   >
-                    View Movie Details
+                    Watch Details
                   </button>
                 </div>
               </div>
