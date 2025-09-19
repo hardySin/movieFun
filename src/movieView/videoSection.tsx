@@ -121,17 +121,18 @@ const YouTubeGallery: React.FC = () => {
                         <div key={section.title} className="video-section">
                             <div className="section-header" onClick={() => toggleSection(section.title)}>
                                 <h2>{section.title}</h2>
+
                                 <span className="toggle-icon">
                                     {expandedSections[section.title] ? <ChevronUp /> : <ChevronDown />}
                                 </span>
                             </div>
-
+                            {section.videos.length > 0 ? "" :
+                                <div className="no-videos">
+                                    <p>No {section.title} are available.</p>
+                                </div>}
                             {expandedSections[section.title] && (
                                 <div className="videos-grid">
-                                    {section.videos.length > 0 ? "" :
-                                        <div className="no-videos">
-                                            <p>No {expandedSections[section.title]} available.</p>
-                                        </div>}
+
                                     {section.videos.map(video => (
                                         <div key={video.id} className="video-card" onClick={() => openVideo(video)}>
                                             <div className="video-thumbnail">
