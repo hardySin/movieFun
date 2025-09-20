@@ -2,6 +2,7 @@ const options = {
     method: 'GET',
     headers: {
         accept: 'application/json',
+        
         Authorization: `Bearer ${process.env.REACT_APP_TMDB_TOKEN}`
     }
 };
@@ -32,7 +33,7 @@ const moviesVideos = async (movieId: string) => {
 };
 
 const searchMovies = async (movieName: string) => {
-    return await fetch(`https://api.themoviedb.org/3/search/movie?api_key=0612d44670c9d53eb57dd9ec885631d6&language=en-US&query=${movieName}&page=1&include_adult=false`, options)
+    return await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&query=${movieName}&page=1&include_adult=false`, options)
 };
 
 const watchProvider = async (movieId: string) => {
